@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grupo Macedo Empresarial — Próximamente</title>
+  <meta name="description" content="Grupo Macedo Empresarial. Estamos construyendo algo extraordinario. Próximamente." />
+  <link rel="canonical" href="https://grupomacedoempresarial.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://grupomacedoempresarial.com/" />
+  <meta property="og:title" content="Grupo Macedo Empresarial — Próximamente" />
+  <meta property="og:description" content="Estamos construyendo algo extraordinario. Próximamente." />
+  <meta property="og:image" content="https://grupomacedoempresarial.com/assets/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/favicon.png" />
+
+  <!-- Fonts: Playfair Display (display serif) + Rubik (sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Ambient particle canvas -->
+  <canvas id="campo" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Preloader: word-by-word reveal, then logo scale-in -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader-words">
+      <span class="w"><span>GRUPO</span></span>
+      <span class="w"><span>MACEDO</span></span>
+      <span class="w"><span>EMPRESARIAL</span></span>
+    </div>
+    <div class="preloader-line"><span></span></div>
+  </div>
+
+  <!-- Corner chrome -->
+  <header class="chrome chrome-top">
+    <span class="chrome-item chrome-left reveal">GME</span>
+    <span class="chrome-item chrome-right reveal">grupomacedoempresarial.com</span>
+  </header>
+
+  <!-- Hero -->
+  <main class="hero">
+    <div class="lockup" id="lockup">
+      <img src="assets/logo.png" alt="Grupo Macedo Empresarial" class="logo reveal" width="1188" height="691" />
+      <div class="divider reveal"><span></span></div>
+      <h1 class="titulo" aria-label="Próximamente">
+        <span class="letra">P</span><span class="letra">R</span><span class="letra">Ó</span><span class="letra">X</span><span class="letra">I</span><span class="letra">M</span><span class="letra">A</span><span class="letra">M</span><span class="letra">E</span><span class="letra">N</span><span class="letra">T</span><span class="letra">E</span>
+      </h1>
+      <p class="subtitulo reveal">Estamos construyendo algo extraordinario.</p>
+      <a class="contacto reveal" href="mailto:contacto@grupomacedoempresarial.com">contacto@grupomacedoempresarial.com</a>
+    </div>
+  </main>
+
+  <!-- Rotating seal -->
+  <div class="sello reveal" aria-hidden="true">
+    <svg viewBox="0 0 120 120" width="120" height="120">
+      <defs>
+        <path id="circulo" d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" />
+      </defs>
+      <text class="sello-texto">
+        <textPath href="#circulo" textLength="276" lengthAdjust="spacing">PRÓXIMAMENTE · GRUPO MACEDO EMPRESARIAL ·&#160;</textPath>
+      </text>
+      <circle cx="60" cy="60" r="3" class="sello-punto" />
+    </svg>
+  </div>
+
+  <!-- Footer chrome -->
+  <footer class="chrome chrome-bottom">
+    <span class="chrome-item chrome-left reveal">© 2026 Grupo Macedo Empresarial</span>
+    <span class="chrome-item chrome-right reveal">Todos los derechos reservados</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,360 @@
+/* ============================================================
+   GRUPO MACEDO EMPRESARIAL — Próximamente
+   Tema claro: papel crema #f5f3ef · tinta navy #162638 · oro #af915f
+   Tipografía: Playfair Display (display) + Rubik (sans)
+   ============================================================ */
+
+:root {
+  --paper: #f5f3ef;
+  --paper-deep: #eceae3;
+  --ink: #162638;
+  --ink-soft: rgba(22, 38, 56, 0.62);
+  --ink-faint: rgba(22, 38, 56, 0.42);
+  --gold: #af915f;
+  --hairline: rgba(175, 145, 95, 0.45);
+  --serif: "Playfair Display", Georgia, serif;
+  --sans: "Rubik", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+/* ---------- Fondo: canvas de partículas + viñeta ---------- */
+
+#campo {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 75% at 50% 42%, transparent 45%, rgba(214, 208, 196, 0.5) 82%, rgba(198, 191, 176, 0.65) 100%);
+}
+
+/* ---------- Preloader: revelado palabra por palabra ---------- */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--paper-deep);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+.preloader.is-done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader-words {
+  display: flex;
+  gap: 0.6em;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 24px;
+}
+
+.preloader-words .w {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.preloader-words .w span {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: clamp(13px, 1.6vw, 17px);
+  letter-spacing: 0.34em;
+  color: var(--ink);
+  transform: translateY(110%);
+  animation: sube 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.preloader-words .w:nth-child(1) span { animation-delay: 0.25s; }
+.preloader-words .w:nth-child(2) span { animation-delay: 0.5s; }
+.preloader-words .w:nth-child(3) span { animation-delay: 0.75s; }
+
+@keyframes sube {
+  to { transform: translateY(0); }
+}
+
+.preloader-line {
+  width: min(240px, 40vw);
+  height: 1px;
+  background: rgba(175, 145, 95, 0.3);
+  overflow: hidden;
+}
+
+.preloader-line span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: linea 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.9s forwards;
+}
+
+@keyframes linea {
+  to { transform: scaleX(1); }
+}
+
+/* ---------- Marco: esquinas fijas ---------- */
+
+.chrome {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 36px;
+  pointer-events: none;
+}
+
+.chrome-top { top: 0; }
+.chrome-bottom { bottom: 0; }
+
+.chrome-item {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.chrome-top .chrome-left {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.42em;
+  color: var(--ink);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  z-index: 5;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 90px 24px;
+}
+
+.lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  will-change: transform;
+}
+
+.logo {
+  width: min(480px, 68vw);
+  height: auto;
+  filter: drop-shadow(0 16px 34px rgba(60, 50, 30, 0.18));
+}
+
+.divider {
+  width: min(320px, 46vw);
+  height: 1px;
+  margin: 34px 0 30px;
+  background: rgba(175, 145, 95, 0.25);
+  overflow: hidden;
+}
+
+.divider span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);
+}
+
+.titulo {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(26px, 5.2vw, 62px);
+  letter-spacing: 0.22em;
+  text-indent: 0.22em; /* compensa el tracking en el centrado */
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.titulo .letra {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.55em);
+}
+
+.subtitulo {
+  margin-top: 22px;
+  font-size: clamp(13px, 1.5vw, 16px);
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+}
+
+.contacto {
+  margin-top: 30px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: lowercase;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 6px;
+  transition: color 0.25s ease, border-color 0.25s ease, border-width 0.2s ease;
+}
+
+.contacto:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  border-bottom-width: 2px;
+}
+
+/* ---------- Sello giratorio ---------- */
+
+.sello {
+  position: fixed;
+  right: 40px;
+  bottom: 84px;
+  z-index: 10;
+  width: 120px;
+  height: 120px;
+  opacity: 0.9;
+}
+
+.sello svg {
+  display: block;
+  overflow: visible;
+  animation: girar 14s linear infinite;
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+.sello-texto {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  fill: var(--ink);
+}
+
+.sello-punto {
+  fill: var(--gold);
+}
+
+/* ---------- Coreografía de entrada (tras el preloader) ---------- */
+
+.reveal,
+.titulo .letra,
+.divider span {
+  opacity: 0;
+}
+
+body.is-ready .logo {
+  animation: logoIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+}
+
+@keyframes logoIn {
+  from { opacity: 0; transform: scale(0.94) translateY(14px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+body.is-ready .divider span {
+  opacity: 1;
+  animation: dividerIn 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.7s forwards;
+}
+
+@keyframes dividerIn {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+body.is-ready .titulo .letra {
+  animation: letraIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body.is-ready .titulo .letra:nth-child(1)  { animation-delay: 0.95s; }
+body.is-ready .titulo .letra:nth-child(2)  { animation-delay: 1.0s; }
+body.is-ready .titulo .letra:nth-child(3)  { animation-delay: 1.05s; }
+body.is-ready .titulo .letra:nth-child(4)  { animation-delay: 1.1s; }
+body.is-ready .titulo .letra:nth-child(5)  { animation-delay: 1.15s; }
+body.is-ready .titulo .letra:nth-child(6)  { animation-delay: 1.2s; }
+body.is-ready .titulo .letra:nth-child(7)  { animation-delay: 1.25s; }
+body.is-ready .titulo .letra:nth-child(8)  { animation-delay: 1.3s; }
+body.is-ready .titulo .letra:nth-child(9)  { animation-delay: 1.35s; }
+body.is-ready .titulo .letra:nth-child(10) { animation-delay: 1.4s; }
+body.is-ready .titulo .letra:nth-child(11) { animation-delay: 1.45s; }
+body.is-ready .titulo .letra:nth-child(12) { animation-delay: 1.5s; }
+
+@keyframes letraIn {
+  from { opacity: 0; transform: translateY(0.55em); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+body.is-ready .subtitulo { animation: fundido 1s ease 1.75s forwards; }
+body.is-ready .contacto  { animation: fundido 1s ease 2.0s forwards; }
+body.is-ready .chrome-item { animation: fundido 1s ease 2.2s forwards; }
+body.is-ready .sello     { animation: fundidoSello 1.2s ease 2.35s forwards; }
+
+@keyframes fundido {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fundidoSello {
+  from { opacity: 0; }
+  to   { opacity: 0.9; }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+  .chrome { padding: 20px 22px; }
+  .chrome-top .chrome-right { display: none; }
+  .chrome-bottom { justify-content: center; }
+  .chrome-bottom .chrome-right { display: none; }
+  .sello { right: 22px; bottom: 70px; width: 92px; height: 92px; }
+  .titulo { letter-spacing: 0.16em; text-indent: 0.16em; white-space: normal; }
+}
+
+/* ---------- Movimiento reducido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader { display: none; }
+  .reveal, .titulo .letra, .divider span { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .divider span { transform: scaleX(1) !important; }
+  .sello svg { animation: none; }
+  #campo { display: none; }
+}
